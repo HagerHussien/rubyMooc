@@ -1,0 +1,29 @@
+<div class="container">
+    <div class="page-header">
+        <h1 class="text-center">Courses</h1>
+    </div>
+    <div class="container">
+        <div class="row stylish-panel">
+            <% @courses.each do |course| %>
+                <div class="col-md-3">
+                    <div>
+                        <% if course.image.file != nil %>
+                            <%= image_tag course.image.url, class:'img img-circle', size: "200x200"%>
+                                <% else %>
+                                    <img class="media-object img img-circle" src="http://lorempixel.com/200/200/abstract/2/" alt="">
+                                    <% end %>
+                                        <h2>
+                                            <%= course.title %>
+                                        </h2>
+                                        <p>By:
+                                            <%= link_to course.user.name %>
+                                        </p>
+                                        <%= link_to 'View Course', course, class: 'btn btn-default' %>
+                    </div>
+                </div>
+                <% end %>
+        </div>
+    </div>
+    <hr>
+
+</div>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+ id: 1
+ name: "hagerh"
+ email: "hagerh@gmail.com"
+ encrypted_password: "hagerh"
+ status: "instructor"
+ gender: "female"
+ date_of_birth: "1992-01-05"
+

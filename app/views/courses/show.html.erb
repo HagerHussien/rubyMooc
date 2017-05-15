@@ -1,0 +1,79 @@
+<div class="container">
+    <div class="page-header ">
+        <h1 class="pull-left">
+            <%= @course.title %>
+        </h1>
+        <div class="pull-right">
+            <% if user_signed_in? %>
+                <%if current_user.status === "instructor" && current_user.id === @course.user.id  %>
+
+                    <%= link_to '<i class="glyphicon glyphicon-edit"></i> Edit Course '.html_safe, edit_course_path(@course), class: 'btn btn-warning btn-md' %>
+                        <span>  </span>
+                        <%= link_to '<i class="glyphicon glyphicon-remove"></i> Delete Course '.html_safe, @course ,method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-md' %>
+                            <% end %>
+                                <% end %>
+        </div>
+        <div class="clearfix">
+        </div>
+    </div>
+    <p class="lead">
+        <%= 'Description :' + @course.try(:description) %>
+    </p>
+    <table class="table forum table-striped">
+        <thead>
+            <tr>
+                <th class="cell-stat"></th>
+                <th>
+                    <h3>Lectures</h3>
+                </th>
+                <th class="cell-stat text-center hidden-xs hidden-sm">Likes</th>
+                <th class="cell-stat text-center hidden-xs hidden-sm">Disikes</th>
+                <th class="cell-stat text-center hidden-xs hidden-sm">No. of Comments</th>
+                <th class="cell-stat-2x hidden-xs hidden-sm">Last Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% @course.lectures.each do |lecture| %>
+                <tr>
+                    <td class="text-center"><i class="fa fa-question fa-2x text-danger"></i></td>
+                    <td>
+                        <h4>
+                            <%= link_to lecture.title, lecture %>
+                        </h4>
+                    </td>
+                    <td class="text-center hidden-xs hidden-sm">
+                        <a>
+                            <%= lecture.get_upvotes.size %>
+                        </a>
+                    </td>
+                    <td class="text-center hidden-xs hidden-sm">
+                        <a>
+                            <%= lecture.get_downvotes.size %>
+                        </a>
+                    </td>
+                    <td class="text-center hidden-xs hidden-sm">
+                        <a>
+                            <%= lecture.comments.size %>
+                        </a>
+                    </td>
+                    <td class="hidden-xs hidden-sm">
+                        <%= 'by' if lecture.comments.size != 0 %>
+                            <%= link_to lecture.comments.last.user.name if lecture.comments.size != 0 %><br><small><i class="fa fa-clock-o"></i><%= time_ago_in_words(lecture.comments.last.created_at)+" ago" if lecture.comments.size != 0 %></small></td>
+                </tr>
+                <% end %>
+        </tbody>
+    </table>
+    <br>
+
+    <% if user_signed_in? %>
+        <%if current_user.status === "instructor" && current_user.id === @course.user.id  %>
+            <div class="row">
+                <div class="col-xs-offset-4 col-xs-4 col-xs-offset-4">
+                    <%= link_to '<span class="glyphicon glyphicon-plus-sign" aria-hidden="true"></span> Add a new Lecture '.html_safe, new_lecture_path(:c_id => @course.id), method: :post, class: 'btn btn-success btn-lg btn-block' %>
+                </div>
+            </div>
+            <% end %>
+                <% end %>
+
+</div>
+</div>

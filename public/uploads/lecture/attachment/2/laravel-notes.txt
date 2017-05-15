@@ -1,0 +1,13 @@
+composer install  # after download git project 
+
+composer update  # to update all packages 
+
+copy .env.example to .evn and change my own variables  # to get a copy of project from another one in the team 
+
+
+##########################################################
+laravel use facsade desgin pattern
+
+composer create-project --prefer-dist laravel/laravel blog
+
+CSRF methodoligy "CSRF token mismatche"
